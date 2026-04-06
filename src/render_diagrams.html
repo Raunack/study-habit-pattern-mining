@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .diagram-container {
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="diagram1" class="diagram-container">
+        <h2>Data Processing Pipeline</h2>
+        <div class="mermaid">
+            graph TD
+            A["Raw Data"] --> B["Preprocessing Pipeline"]
+            B --> C{"Missing Values?"}
+            C -- Yes --> D["Imputation (Median/Mode)"]
+            C -- No --> E["Next Step"]
+            D --> E
+            E --> F["Encoding Categorical Variables"]
+            F --> G["Scaling Numerical Variables"]
+            G --> H["Processed Data"]
+            H --> I["Model Training"]
+            I --> J["Saved Models (.pkl)"]
+        </div>
+    </div>
+
+    <div id="diagram2" class="diagram-container">
+        <h2>User Application Flow</h2>
+        <div class="mermaid">
+            sequenceDiagram
+            participant User
+            participant UI as Streamlit UI
+            participant Pre as Preprocessor
+            participant Model as AI Models (RF and KMeans)
+
+            User->>UI: Enters Study Habits (Hours, Sleep, etc.)
+            User->>UI: Clicks "Analyze My Habits"
+            UI->>Pre: Send Raw Input Data
+            Pre->>Pre: Transform Data (Scale/Encode)
+            Pre-->>UI: Return Processed Data
+            UI->>Model: predict_score(Processed Data)
+            Model-->>UI: Return Predicted Score (Regression)
+            UI->>Model: predict_cluster(Processed Data)
+            Model-->>UI: Return Cluster ID (Clustering)
+            UI-->>User: Display Score, Feedback, and Persona
+        </div>
+    </div>
+
+</body>
+
+</html>
